@@ -14,8 +14,9 @@ export interface GherkinTestcafeBuilderOptions {
   devServerTarget?: string; // set to run ng serve
   disablePageCaching?: boolean;
   disableScreenshots?: boolean;
+  disableTestSyntaxValidation?: boolean;
   filter: Filter;
-  hostname?: string; // default in schema.json
+  host?: string; // default in schema.json
   live?: boolean; // default in schema.json
   noColor?: boolean;
   pageLoadTimeout?: number;

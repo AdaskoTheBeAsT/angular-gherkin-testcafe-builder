@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@adaskothebeast/angular-gherkin-testcafe-builder": [
-        "@adaskothebeast/angular-gherkin-testcafe-builder"
+        "packages/angular-gherkin-testcafe-builder/src/index.ts"
       ]
     }
   },

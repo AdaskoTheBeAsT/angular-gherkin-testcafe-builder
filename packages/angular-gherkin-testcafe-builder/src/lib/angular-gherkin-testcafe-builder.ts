@@ -13,10 +13,11 @@ async function runnerRun(
   runner: Runner,
   opts: GherkinTestcafeBuilderOptions
 ): Promise<number> {
-  return runner.run({
+  const runOptions: RunOptions = {
     assertionTimeout: opts.assertionTimeout,
     debugMode: opts.debugMode,
     debugOnFail: opts.debugOnFail,
+    disableTestSyntaxValidation: opts.disableTestSyntaxValidation,
     disablePageCaching: opts.disablePageCaching,
     pageLoadTimeout: opts.pageLoadTimeout,
     quarantineMode: opts.quarantineMode,
@@ -25,10 +26,11 @@ async function runnerRun(
     skipUncaughtErrors: opts.skipUncaughtErrors,
     speed: opts.speed,
     stopOnFirstFail: opts.stopOnFirstFail,
-  });
+  };
+  return runner.run(runOptions);
 }
 
-async function runTestcafe(
+async function runGherkinTestcafe(
   opts: GherkinTestcafeBuilderOptions,
   hostName
 ): Promise<number> {
@@ -183,7 +185,7 @@ async function execute(
 
   try {
     const host = serverOptions ? serverOptions.host : options.host;
-    const failedCount = await runTestcafe(options, host);
+    const failedCount = await runGherkinTestcafe(options, host);
     if (failedCount > 0) {
       return { success: false };
     } else {

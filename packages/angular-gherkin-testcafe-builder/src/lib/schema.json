@@ -337,7 +337,7 @@
         }
       }
     },
-    "hostname": {
+    "host": {
       "type": "string",
       "description": "[TestCafe] Specifies your computer's hostname. It is used when you run tests in remote browsers. (only if devServerTarget is not set), default = localhost. If the hostname is not specified, TestCafe uses the operating system's hostname or the current machine's network IP address.",
       "default": "localhost"

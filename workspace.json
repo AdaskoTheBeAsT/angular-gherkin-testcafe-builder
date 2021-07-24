@@ -8,16 +8,15 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "packages/angular-gherkin-testcafe-builder/tsconfig.lib.json",
-              "packages/angular-gherkin-testcafe-builder/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!packages/angular-gherkin-testcafe-builder/**/*"
+            "lintFilePatterns": [
+              "packages/angular-gherkin-testcafe-builder/**/*.ts",
+              "packages/angular-gherkin-testcafe-builder/**/*.spec.ts",
+              "packages/angular-gherkin-testcafe-builder/**/*.spec.tsx",
+              "packages/angular-gherkin-testcafe-builder/**/*.spec.js",
+              "packages/angular-gherkin-testcafe-builder/**/*.spec.jsx",
+              "packages/angular-gherkin-testcafe-builder/**/*.d.ts"
             ]
           }
         },
@@ -25,9 +24,9 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "packages/angular-gherkin-testcafe-builder/jest.config.js",
-            "tsConfig": "packages/angular-gherkin-testcafe-builder/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/packages/angular-gherkin-testcafe-builder"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -37,7 +36,8 @@
             "packageJson": "packages/angular-gherkin-testcafe-builder/package.json",
             "main": "packages/angular-gherkin-testcafe-builder/src/index.ts",
             "assets": ["packages/angular-gherkin-testcafe-builder/*.md"]
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         }
       }
     }

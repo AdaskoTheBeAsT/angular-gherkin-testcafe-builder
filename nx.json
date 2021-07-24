@@ -11,7 +11,8 @@
     },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    ".eslintrc.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
@@ -29,5 +30,13 @@
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
