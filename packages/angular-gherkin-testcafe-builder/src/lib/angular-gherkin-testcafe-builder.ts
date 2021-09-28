@@ -2,11 +2,11 @@ import {
   BuilderContext,
   BuilderOutput,
   createBuilder,
-  targetFromTargetString,
+  targetFromTargetString
 } from '@angular-devkit/architect';
 import { JsonObject } from '@angular-devkit/core';
 import { GherkinTestcafeBuilderOptions } from './schema';
-import { isMatch } from 'lodash-es';
+import { isMatch } from 'lodash';
 import createTestCafe from 'gherkin-testcafe';
 
 async function runnerRun(
@@ -26,6 +26,10 @@ async function runnerRun(
     skipUncaughtErrors: opts.skipUncaughtErrors,
     speed: opts.speed,
     stopOnFirstFail: opts.stopOnFirstFail,
+    browserInitTimeout: opts.browserInitTimeout,
+    pageRequestTimeout: opts.pageRequestTimeout,
+    ajaxRequestTimeout: opts.ajaxRequestTimeout,
+    disableScreenshots: opts.disableScreenshots
   };
   return runner.run(runOptions);
 }
@@ -96,14 +100,10 @@ async function runGherkinTestcafe(
           return false;
         }
 
-        if (
-          opts.filter.fixtureMeta &&
-          !isMatch(fixtureMeta, opts.filter.fixtureMeta)
-        ) {
-          return false;
-        }
+        return !(opts.filter.fixtureMeta &&
+          !isMatch(fixtureMeta, opts.filter.fixtureMeta));
 
-        return true;
+
       }
     );
   }
@@ -111,7 +111,11 @@ async function runGherkinTestcafe(
   runner = runner
     .useProxy(proxy, proxyBypass)
     .src(opts.src instanceof Array ? opts.src : [opts.src])
-    .tsConfigPath(opts.tsConfigPath)
+    .compilerOptions({
+      typescript: {
+        configPath: opts.tsConfigPath
+      }
+    })
     .concurrency(opts.concurrency || 1);
 
   if (opts.clientScripts) {
