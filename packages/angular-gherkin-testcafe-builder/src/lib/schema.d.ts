@@ -37,6 +37,9 @@ export interface GherkinTestcafeBuilderOptions {
   stopOnFirstFail?: boolean;
   tsConfigPath?: string;
   video?: Video;
+  browserInitTimeout?: number;
+  pageRequestTimeout?: number;
+  ajaxRequestTimeout?: number;
 }
 
 export interface Filter {

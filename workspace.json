@@ -26,7 +26,9 @@
             "jestConfig": "packages/angular-gherkin-testcafe-builder/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/packages/angular-gherkin-testcafe-builder"]
+          "outputs": [
+            "coverage/packages/angular-gherkin-testcafe-builder"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -35,9 +37,19 @@
             "tsConfig": "packages/angular-gherkin-testcafe-builder/tsconfig.lib.json",
             "packageJson": "packages/angular-gherkin-testcafe-builder/package.json",
             "main": "packages/angular-gherkin-testcafe-builder/src/index.ts",
-            "assets": ["packages/angular-gherkin-testcafe-builder/*.md"]
+            "assets": [
+              "packages/angular-gherkin-testcafe-builder/*.md",
+              "packages/angular-gherkin-testcafe-builder/builders.json",
+              {
+                "glob": "schema.json",
+                "input": "packages/angular-gherkin-testcafe-builder/src/lib/",
+                "output": "src/lib/"
+              }
+            ]
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       }
     }
