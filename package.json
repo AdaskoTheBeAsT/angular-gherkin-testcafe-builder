@@ -12,7 +12,7 @@
     "affected:lint": "nx affected:lint",
     "affected:test": "nx affected:test",
     "build": "nx build",
-    "build:lib-pack": "nx build angular-gherkin-testcafe-builder && cd dist/packages/angular-gherkin-testcafe-builder && npm pack && mv *.tgz ../../../",
+    "build:lib-pack": "nx build angular-gherkin-testcafe-builder && cd dist/packages/angular-gherkin-testcafe-builder && npm pack && cp *.tgz ../../../",
     "dep-graph": "nx dep-graph",
     "e2e": "nx e2e",
     "format": "nx format:write",
