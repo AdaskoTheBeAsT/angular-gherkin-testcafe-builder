@@ -30,7 +30,7 @@
   "builders": "builders.json",
   "homepage": "https://github.com/adaskothebeast/angular-gherkin-testcafe-builder#readme",
   "peerDependencies": {
-    "@angular/core": ">=12.1.2",
+    "@angular/core": ">=12.2.7",
     "gherkin-testcafe": ">=5.1.0",
     "testcafe": ">=1.16.0"
   },
