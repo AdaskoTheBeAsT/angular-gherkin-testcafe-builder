@@ -2,18 +2,32 @@ import {
   BuilderContext,
   BuilderOutput,
   createBuilder,
-  targetFromTargetString
+  targetFromTargetString,
 } from '@angular-devkit/architect';
 import { JsonObject } from '@angular-devkit/core';
 import { GherkinTestcafeBuilderOptions } from './schema';
 import { isMatch } from 'lodash';
 import createTestCafe from 'gherkin-testcafe';
+import { CompilerOptions } from 'typescript';
+
+// lack of proper typescript definition in testcafe hack
+interface ExtendedRunOptions extends RunOptions {
+  browserInitTimeout?: number;
+  pageRequestTimeout?: number;
+  ajaxRequestTimeout?: number;
+  disableScreenshots?: boolean;
+}
+
+// lack of proper typescript definition in testcafe hack
+interface ExtendedRunner extends Runner {
+  compilerOptions(options: { typescript: CompilerOptions }): ExtendedRunner;
+}
 
 async function runnerRun(
-  runner: Runner,
+  runner: ExtendedRunner,
   opts: GherkinTestcafeBuilderOptions
 ): Promise<number> {
-  const runOptions: RunOptions = {
+  const runOptions: ExtendedRunOptions = {
     assertionTimeout: opts.assertionTimeout,
     debugMode: opts.debugMode,
     debugOnFail: opts.debugOnFail,
@@ -29,7 +43,7 @@ async function runnerRun(
     browserInitTimeout: opts.browserInitTimeout,
     pageRequestTimeout: opts.pageRequestTimeout,
     ajaxRequestTimeout: opts.ajaxRequestTimeout,
-    disableScreenshots: opts.disableScreenshots
+    disableScreenshots: opts.disableScreenshots,
   };
   return runner.run(runOptions);
 }
@@ -53,9 +67,9 @@ async function runGherkinTestcafe(
     opts.developmentMode
   );
 
-  let runner = opts.live
-    ? testCafe.createLiveModeRunner()
-    : testCafe.createRunner();
+  let runner = (
+    opts.live ? testCafe.createLiveModeRunner() : testCafe.createRunner()
+  ) as ExtendedRunner;
 
   if (opts.appCommand) {
     runner = runner.startApp(opts.appCommand, opts.appInitDelay);
@@ -100,10 +114,10 @@ async function runGherkinTestcafe(
           return false;
         }
 
-        return !(opts.filter.fixtureMeta &&
-          !isMatch(fixtureMeta, opts.filter.fixtureMeta));
-
-
+        return !(
+          opts.filter.fixtureMeta &&
+          !isMatch(fixtureMeta, opts.filter.fixtureMeta)
+        );
       }
     );
   }
@@ -113,8 +127,8 @@ async function runGherkinTestcafe(
     .src(opts.src instanceof Array ? opts.src : [opts.src])
     .compilerOptions({
       typescript: {
-        configPath: opts.tsConfigPath
-      }
+        configPath: opts.tsConfigPath,
+      },
     })
     .concurrency(opts.concurrency || 1);
 
@@ -195,7 +209,8 @@ async function execute(
     } else {
       return { success: true };
     }
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     console.error('Testcafe run failed!!! error:', e);
     return { success: false, error: e.message };
   } finally {
