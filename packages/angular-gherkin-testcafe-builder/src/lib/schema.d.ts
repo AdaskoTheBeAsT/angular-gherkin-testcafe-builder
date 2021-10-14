@@ -35,6 +35,7 @@ export interface GherkinTestcafeBuilderOptions {
   src: string | string[];
   ssl?: TlsOptions;
   stopOnFirstFail?: boolean;
+  tags: string | string[];
   tsConfigPath?: string;
   video?: Video;
   browserInitTimeout?: number;

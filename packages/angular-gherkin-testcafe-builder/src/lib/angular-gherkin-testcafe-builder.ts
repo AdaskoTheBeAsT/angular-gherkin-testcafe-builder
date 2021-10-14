@@ -108,6 +108,10 @@ async function runGherkinTestcafe(
     );
   }
 
+  if (opts.tags) {
+    runner = runner.tags(opts.tags instanceof Array ? opts.tags : [opts.tags]);
+  }
+
   runner = runner
     .useProxy(proxy, proxyBypass)
     .src(opts.src instanceof Array ? opts.src : [opts.src])
