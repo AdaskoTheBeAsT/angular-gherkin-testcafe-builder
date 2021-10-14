@@ -1,5 +1,5 @@
 {
-  "id": "TestcafeBuilderOptions",
+  "$id": "TestcafeBuilderOptions",
   "title": "TestCafe builder",
   "description": "TestCafe builder options",
   "type": "object",
@@ -293,6 +293,10 @@
       "type": "string",
       "description": "[Angular] Dev server target to run tests against."
     },
+    "disableMultipleWindows": {
+      "type": "boolean",
+      "description": "[TestCafe] Disable Support for Multiple Windows."
+    },
     "disablePageCaching": {
       "type": "boolean",
       "description": "[TestCafe] Prevents the browser from caching page content. When navigation to a cached page occurs in role code, local and session storage content is not preserved. Set disablePageCaching to true to retain the storage items after navigation."
@@ -300,10 +304,6 @@
     "disableScreenshots": {
       "type": "boolean",
       "description": "[TestCafe] Prevents TestCafe from taking screenshots. When this property is specified, screenshots are not taken when a test fails or a screenshot action is executed."
-    },
-    "disableTestSyntaxValidation": {
-      "type": "boolean",
-      "description": "[TestCafe] disables checks for 'test' and 'fixture' directives to run dynamically loaded tests"
     },
     "filter": {
       "type": "object",
