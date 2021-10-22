@@ -2,36 +2,22 @@ import {
   BuilderContext,
   BuilderOutput,
   createBuilder,
-  targetFromTargetString,
+  targetFromTargetString
 } from '@angular-devkit/architect';
 import { JsonObject } from '@angular-devkit/core';
 import { GherkinTestcafeBuilderOptions } from './schema';
 import { isMatch } from 'lodash';
 import createTestCafe from 'gherkin-testcafe';
-import { CompilerOptions } from 'typescript';
-
-// lack of proper typescript definition in testcafe hack
-interface ExtendedRunOptions extends RunOptions {
-  browserInitTimeout?: number;
-  pageRequestTimeout?: number;
-  ajaxRequestTimeout?: number;
-  disableScreenshots?: boolean;
-}
-
-// lack of proper typescript definition in testcafe hack
-interface ExtendedRunner extends Runner {
-  compilerOptions(options: { typescript: CompilerOptions }): ExtendedRunner;
-}
 
 async function runnerRun(
-  runner: ExtendedRunner,
+  runner: GherkinTestcafeRunner,
   opts: GherkinTestcafeBuilderOptions
 ): Promise<number> {
-  const runOptions: ExtendedRunOptions = {
+  const runOptions: RunOptions = {
     assertionTimeout: opts.assertionTimeout,
     debugMode: opts.debugMode,
     debugOnFail: opts.debugOnFail,
-    disableTestSyntaxValidation: opts.disableTestSyntaxValidation,
+    disableMultipleWindows: opts.disableMultipleWindows,
     disablePageCaching: opts.disablePageCaching,
     pageLoadTimeout: opts.pageLoadTimeout,
     quarantineMode: opts.quarantineMode,
@@ -43,7 +29,7 @@ async function runnerRun(
     browserInitTimeout: opts.browserInitTimeout,
     pageRequestTimeout: opts.pageRequestTimeout,
     ajaxRequestTimeout: opts.ajaxRequestTimeout,
-    disableScreenshots: opts.disableScreenshots,
+    disableScreenshots: opts.disableScreenshots
   };
   return runner.run(runOptions);
 }
@@ -69,7 +55,7 @@ async function runGherkinTestcafe(
 
   let runner = (
     opts.live ? testCafe.createLiveModeRunner() : testCafe.createRunner()
-  ) as ExtendedRunner;
+  );
 
   if (opts.appCommand) {
     runner = runner.startApp(opts.appCommand, opts.appInitDelay);
@@ -87,39 +73,46 @@ async function runGherkinTestcafe(
 
   if (opts.filter) {
     runner = runner.filter(
-      (testName, fixtureName, fixturePath, testMeta, fixtureMeta) => {
+      (testName, fixtureName, fixturePath, testMeta, fixtureMeta): Promise<boolean> => {
         if (opts.filter.test && testName !== opts.filter.test) {
-          return false;
+          return new Promise(resolve => resolve(false));
         }
 
         if (
           opts.filter.testGrep &&
           !RegExp(opts.filter.testGrep).test(testName)
         ) {
-          return false;
+          return new Promise(resolve => resolve(false));
         }
 
         if (opts.filter.fixture && fixtureName !== opts.filter.fixture) {
-          return false;
+          return new Promise(resolve => resolve(false));
         }
 
         if (
           opts.filter.fixtureGrep &&
           !RegExp(opts.filter.fixtureGrep).test(fixtureName)
         ) {
-          return false;
+          return new Promise(resolve => resolve(false));
         }
 
         if (opts.filter.testMeta && !isMatch(testMeta, opts.filter.testMeta)) {
-          return false;
+          return new Promise(resolve => resolve(false));
         }
 
-        return !(
-          opts.filter.fixtureMeta &&
-          !isMatch(fixtureMeta, opts.filter.fixtureMeta)
-        );
+        return new Promise(resolve => {
+
+          resolve(!(
+            opts.filter.fixtureMeta &&
+            !isMatch(fixtureMeta, opts.filter.fixtureMeta)
+          ));
+        });
       }
     );
+  }
+
+  if (opts.tags) {
+    runner = runner.tags(opts.tags instanceof Array ? opts.tags : [opts.tags]);
   }
 
   runner = runner
@@ -127,8 +120,8 @@ async function runGherkinTestcafe(
     .src(opts.src instanceof Array ? opts.src : [opts.src])
     .compilerOptions({
       typescript: {
-        configPath: opts.tsConfigPath,
-      },
+        configPath: opts.tsConfigPath
+      }
     })
     .concurrency(opts.concurrency || 1);
 

@@ -12,9 +12,9 @@ export interface GherkinTestcafeBuilderOptions {
   debugOnFail?: boolean;
   developmentMode?: boolean;
   devServerTarget?: string; // set to run ng serve
+  disableMultipleWindows?: boolean;
   disablePageCaching?: boolean;
   disableScreenshots?: boolean;
-  disableTestSyntaxValidation?: boolean;
   filter: Filter;
   host?: string; // default in schema.json
   live?: boolean; // default in schema.json
@@ -35,6 +35,7 @@ export interface GherkinTestcafeBuilderOptions {
   src: string | string[];
   ssl?: TlsOptions;
   stopOnFirstFail?: boolean;
+  tags: string | string[];
   tsConfigPath?: string;
   video?: Video;
   browserInitTimeout?: number;
