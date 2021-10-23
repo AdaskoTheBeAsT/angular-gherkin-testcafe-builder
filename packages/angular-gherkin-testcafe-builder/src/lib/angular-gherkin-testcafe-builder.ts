@@ -2,12 +2,14 @@ import {
   BuilderContext,
   BuilderOutput,
   createBuilder,
-  targetFromTargetString
+  targetFromTargetString,
 } from '@angular-devkit/architect';
 import { JsonObject } from '@angular-devkit/core';
-import { GherkinTestcafeBuilderOptions } from './schema';
-import { isMatch } from 'lodash';
 import createTestCafe from 'gherkin-testcafe';
+import isMatch from 'lodash.ismatch';
+
+import { GherkinTestcafeRunner } from './gherkin-testcafe-runner';
+import { GherkinTestcafeBuilderOptions } from './schema';
 
 async function runnerRun(
   runner: GherkinTestcafeRunner,
@@ -29,7 +31,7 @@ async function runnerRun(
     browserInitTimeout: opts.browserInitTimeout,
     pageRequestTimeout: opts.pageRequestTimeout,
     ajaxRequestTimeout: opts.ajaxRequestTimeout,
-    disableScreenshots: opts.disableScreenshots
+    disableScreenshots: opts.disableScreenshots,
   };
   return runner.run(runOptions);
 }
@@ -55,7 +57,7 @@ async function runGherkinTestcafe(
 
   let runner = (
     opts.live ? testCafe.createLiveModeRunner() : testCafe.createRunner()
-  );
+  ) as GherkinTestcafeRunner;
 
   if (opts.appCommand) {
     runner = runner.startApp(opts.appCommand, opts.appInitDelay);
@@ -73,40 +75,45 @@ async function runGherkinTestcafe(
 
   if (opts.filter) {
     runner = runner.filter(
-      (testName, fixtureName, fixturePath, testMeta, fixtureMeta): Promise<boolean> => {
+      (
+        testName: string,
+        fixtureName: string,
+        fixturePath: string,
+        testMeta: Metadata,
+        fixtureMeta: Metadata
+      ): Promise<boolean> => {
         if (opts.filter.test && testName !== opts.filter.test) {
-          return new Promise(resolve => resolve(false));
+          return Promise.resolve(false);
         }
 
         if (
           opts.filter.testGrep &&
           !RegExp(opts.filter.testGrep).test(testName)
         ) {
-          return new Promise(resolve => resolve(false));
+          return Promise.resolve(false);
         }
 
         if (opts.filter.fixture && fixtureName !== opts.filter.fixture) {
-          return new Promise(resolve => resolve(false));
+          return Promise.resolve(false);
         }
 
         if (
           opts.filter.fixtureGrep &&
           !RegExp(opts.filter.fixtureGrep).test(fixtureName)
         ) {
-          return new Promise(resolve => resolve(false));
+          return Promise.resolve(false);
         }
 
         if (opts.filter.testMeta && !isMatch(testMeta, opts.filter.testMeta)) {
-          return new Promise(resolve => resolve(false));
+          return Promise.resolve(false);
         }
 
-        return new Promise(resolve => {
-
-          resolve(!(
+        return Promise.resolve(
+          !(
             opts.filter.fixtureMeta &&
             !isMatch(fixtureMeta, opts.filter.fixtureMeta)
-          ));
-        });
+          )
+        );
       }
     );
   }
@@ -120,8 +127,8 @@ async function runGherkinTestcafe(
     .src(opts.src instanceof Array ? opts.src : [opts.src])
     .compilerOptions({
       typescript: {
-        configPath: opts.tsConfigPath
-      }
+        configPath: opts.tsConfigPath,
+      },
     })
     .concurrency(opts.concurrency || 1);
 
@@ -156,7 +163,7 @@ async function runGherkinTestcafe(
     return new Promise<number>(
       (
         resolve: (value?: number | PromiseLike<number>) => void,
-        reject: (reason?: any) => void
+        reject: (reason?: unknown) => void
       ) => {
         remoteConnection.once('ready', async () => {
           try {
