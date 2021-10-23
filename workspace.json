@@ -26,9 +26,7 @@
             "jestConfig": "packages/angular-gherkin-testcafe-builder/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/packages/angular-gherkin-testcafe-builder"
-          ]
+          "outputs": ["coverage/packages/angular-gherkin-testcafe-builder"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -47,14 +45,11 @@
               }
             ]
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         }
-      }
+      },
+      "tags": []
     }
   },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+  "defaultProject": "angular-gherkin-testcafe-builder"
 }
