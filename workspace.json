@@ -50,6 +50,5 @@
       },
       "tags": []
     }
-  },
-  "defaultProject": "angular-gherkin-testcafe-builder"
+  }
 }
