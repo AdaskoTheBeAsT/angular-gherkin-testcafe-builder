@@ -219,6 +219,10 @@
     }
   },
   "properties": {
+    "ajaxRequestTimeout": {
+      "type": "number",
+      "description": "[TestCafe] Specifies the timeout in milliseconds to complete the AJAX requests (XHR or fetch)."
+    },
     "appCommand": {
       "type": "string",
       "description": "[TestCafe] Executes the specified shell command before tests are started. Use the appCommand property to launch the application you need to test. This application is automatically terminated after testing is finished."
@@ -232,6 +236,10 @@
       "type": "number",
       "description": "[TestCafe] Specifies the time (in milliseconds) TestCafe attempts to successfully execute an assertion if a selector property or a client function was passed as an actual value",
       "default": 3000
+    },
+    "browserInitTimeout": {
+      "type": "number",
+      "description": "[TestCafe] Specifies the time (in milliseconds) TestCafe waits for the browser to start."
     },
     "clientScripts": {
       "description": "[TestCafe] Injects scripts into pages visited during the tests. Use this property to introduce client-side mock functions or helper scripts",
@@ -355,6 +363,10 @@
       "type": "number",
       "description": "[TestCafe] Specifies the time (in milliseconds) passed after the DOMContentLoaded event, within which TestCafe waits for the window.load event to fire. After the timeout passes or the window.load event is raised (whichever happens first), TestCafe starts the test."
     },
+    "pageRequestTimeout": {
+      "type": "number",
+      "description": "[TestCafe] Specifies the timeout in milliseconds to complete the request for the page's HTML."
+    },
     "port1": {
       "type": "number",
       "description": "[TestCafe] Specifies custom port1 numbers TestCafe uses to perform testing. TestCafe automatically selects ports if ports are not specified."
@@ -406,6 +418,10 @@
         }
       ],
       "default": ["spec"]
+    },
+    "runExecutionTimeout": {
+      "type": "number",
+      "description": "[TestCafe] Time (in milliseconds). If TestCafe is idle for the specified length of time, TestCafe terminates the test run. Applies to actions inside and outside tests."
     },
     "screenshots": {
       "type": "object",
@@ -516,6 +532,10 @@
           }
         }
       ]
+    },
+    "testExecutionTimeout": {
+      "type": "number",
+      "description": "[TestCafe] Time (in milliseconds). If a test is unresponsive for the specified length of time, TestCafe terminates it. Only applies to test contents."
     },
     "tsConfigPath": {
       "type": "string",

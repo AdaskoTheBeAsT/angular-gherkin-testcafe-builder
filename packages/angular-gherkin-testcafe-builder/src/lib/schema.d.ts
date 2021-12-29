@@ -1,9 +1,11 @@
 export interface GherkinTestcafeBuilderOptions {
+  ajaxRequestTimeout?: number;
   appCommand?: string;
   appInitDelay?: number;
   assertionTimeout?: number;
   browsers?: string | string[];
   browser?: Browser;
+  browserInitTimeout?: number;
   remoteBrowser?: BrowserConnection;
   clientScripts?: ClientScript | ClientScript[]; //doesn't do anything yet
   color?: boolean;
@@ -20,6 +22,7 @@ export interface GherkinTestcafeBuilderOptions {
   live?: boolean; // default in schema.json
   noColor?: boolean;
   pageLoadTimeout?: number;
+  pageRequestTimeout?: number;
   port1?: number;
   port2?: number;
   proxy?: string;
@@ -27,6 +30,7 @@ export interface GherkinTestcafeBuilderOptions {
   qrCode?: boolean;
   quarantineMode?: boolean;
   reporters?: string | Reporter | Reporter[]; // default in schema.json
+  runExecutionTimeout?: number;
   screenshots?: ScreenshotsOptions;
   selectorTimeout?: number;
   skipJsErrors?: boolean;
@@ -36,11 +40,9 @@ export interface GherkinTestcafeBuilderOptions {
   ssl?: TlsOptions;
   stopOnFirstFail?: boolean;
   tags: string | string[];
+  testExecutionTimeout?: number;
   tsConfigPath?: string;
   video?: Video;
-  browserInitTimeout?: number;
-  pageRequestTimeout?: number;
-  ajaxRequestTimeout?: number;
 }
 
 export interface Filter {

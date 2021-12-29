@@ -32,6 +32,8 @@ async function runnerRun(
     pageRequestTimeout: opts.pageRequestTimeout,
     ajaxRequestTimeout: opts.ajaxRequestTimeout,
     disableScreenshots: opts.disableScreenshots,
+    testExecutionTimeout: opts.testExecutionTimeout,
+    runExecutionTimeout: opts.runExecutionTimeout,
   };
   return runner.run(runOptions);
 }
