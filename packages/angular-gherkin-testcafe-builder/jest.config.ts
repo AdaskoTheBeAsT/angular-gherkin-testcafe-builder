@@ -1,5 +1,4 @@
 module.exports = {
-  preset: '../../jest.preset.js',
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
   },
@@ -10,4 +9,5 @@ module.exports = {
   coverageDirectory: '../../coverage/packages/angular-gherkin-testcafe-builder',
   displayName: 'angular-gherkin-testcafe-builder',
   testEnvironment: 'node',
+  preset: '../../jest.preset.ts',
 };

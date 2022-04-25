@@ -21,6 +21,6 @@
     "esModuleInterop": true,
     "types": ["node"]
   },
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts", "jest.config.ts"],
   "include": ["**/*.ts"]
 }

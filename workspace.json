@@ -23,13 +23,13 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "packages/angular-gherkin-testcafe-builder/jest.config.js",
+            "jestConfig": "packages/angular-gherkin-testcafe-builder/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/packages/angular-gherkin-testcafe-builder"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "builder": "@nrwl/js:tsc",
           "options": {
             "outputPath": "dist/packages/angular-gherkin-testcafe-builder",
             "tsConfig": "packages/angular-gherkin-testcafe-builder/tsconfig.lib.json",
