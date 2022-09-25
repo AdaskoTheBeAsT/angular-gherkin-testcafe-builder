@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
   },
@@ -9,5 +10,5 @@ module.exports = {
   coverageDirectory: '../../coverage/packages/angular-gherkin-testcafe-builder',
   displayName: 'angular-gherkin-testcafe-builder',
   testEnvironment: 'node',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 };

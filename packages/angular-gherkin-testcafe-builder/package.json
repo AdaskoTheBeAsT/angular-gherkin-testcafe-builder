@@ -1,6 +1,6 @@
 {
   "name": "@adaskothebeast/angular-gherkin-testcafe-builder",
-  "version": "0.10.0",
+  "version": "1.0.0",
   "description": "Angular builder for Gherkin Testcafe",
   "scripts": {
     "build": "tsc",
