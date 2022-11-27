@@ -1,12 +1,12 @@
 {
+  "name": "angular-gherkin-testcafe-builder",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "root": "packages/angular-gherkin-testcafe-builder",
   "sourceRoot": "packages/angular-gherkin-testcafe-builder/src",
   "projectType": "library",
-  "schematics": {},
-  "architect": {
+  "generators": {},
+  "targets": {
     "lint": {
-      "builder": "@nrwl/linter:eslint",
+      "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "packages/angular-gherkin-testcafe-builder/**/*.ts",
@@ -19,15 +19,17 @@
       }
     },
     "test": {
-      "builder": "@nrwl/jest:jest",
+      "executor": "@nrwl/jest:jest",
       "options": {
         "jestConfig": "packages/angular-gherkin-testcafe-builder/jest.config.ts",
         "passWithNoTests": true
       },
-      "outputs": ["coverage/packages/angular-gherkin-testcafe-builder"]
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/angular-gherkin-testcafe-builder"
+      ]
     },
     "build": {
-      "builder": "@nrwl/js:tsc",
+      "executor": "@nrwl/js:tsc",
       "options": {
         "outputPath": "dist/packages/angular-gherkin-testcafe-builder",
         "tsConfig": "packages/angular-gherkin-testcafe-builder/tsconfig.lib.json",
