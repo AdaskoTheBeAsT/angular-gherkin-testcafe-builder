@@ -1,7 +1,0 @@
-{
-  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
-  "version": 2,
-  "projects": {
-    "angular-gherkin-testcafe-builder": "packages/angular-gherkin-testcafe-builder"
-  }
-}

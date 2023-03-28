@@ -1,6 +1,6 @@
 {
   "name": "@adaskothebeast/angular-gherkin-testcafe-builder",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Angular builder for Gherkin Testcafe",
   "scripts": {
     "build": "tsc",
@@ -32,7 +32,7 @@
   "peerDependencies": {
     "@angular/core": ">=15.0.0",
     "gherkin-testcafe": ">=5.5.0",
-    "testcafe": ">=2.1.0"
+    "testcafe": ">=2.4.0"
   },
   "dependencies": {
     "lodash.ismatch": "^4.4.0"
