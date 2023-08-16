@@ -1,0 +1,35 @@
+{
+  "name": "@adaskothebeast/angular-gherkin-testcafe-builder",
+  "version": "4.0.0",
+  "description": "Angular builder for Gherkin Testcafe",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adaskothebeast/angular-gherkin-testcafe-builder.git"
+  },
+  "typings": "typings",
+  "keywords": [
+    "angular",
+    "testcafe",
+    "cucumberjs",
+    "gherkin-testcafe",
+    "builder",
+    "testing",
+    "runner",
+    "e2e"
+  ],
+  "author": "Adam Pluciński (https://github.com/AdaskoTheBeAsT)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adaskothebeast/angular-gherkin-testcafe-builder/issues"
+  },
+  "builders": "builders.json",
+  "homepage": "https://github.com/adaskothebeast/angular-gherkin-testcafe-builder#readme",
+  "peerDependencies": {
+    "@angular/core": ">=16.2.0",
+    "gherkin-testcafe": ">=7.1.0",
+    "testcafe": ">=3.1.0"
+  },
+  "dependencies": {
+    "lodash.ismatch": "^4.4.0"
+  }
+}

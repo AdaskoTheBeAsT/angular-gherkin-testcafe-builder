@@ -1,0 +1,53 @@
+{
+  "name": "angular-gherkin-testcafe-builder",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/angular-gherkin-testcafe-builder/src",
+  "prefix": "adaskothebeast",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/libs/angular-gherkin-testcafe-builder",
+        "tsConfig": "libs/angular-gherkin-testcafe-builder/tsconfig.lib.json",
+        "packageJson": "libs/angular-gherkin-testcafe-builder/package.json",
+        "main": "libs/angular-gherkin-testcafe-builder/src/index.ts",
+        "assets": [
+          "libs/angular-gherkin-testcafe-builder/*.md",
+          "libs/angular-gherkin-testcafe-builder/builders.json",
+          {
+            "glob": "schema.json",
+            "input": "libs/angular-gherkin-testcafe-builder/src/lib/",
+            "output": "src/lib/"
+          }
+        ]
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/angular-gherkin-testcafe-builder/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/angular-gherkin-testcafe-builder/src/**/*.ts",
+          "libs/angular-gherkin-testcafe-builder/src/**/*.html",
+          "libs/angular-gherkin-testcafe-builder/package.json"
+        ]
+      }
+    }
+  }
+}

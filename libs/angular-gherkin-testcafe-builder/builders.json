@@ -1,0 +1,10 @@
+{
+  "$schema": "@angular-devkit/architect/src/builders-schema.json",
+  "builders": {
+    "gherkin-testcafe": {
+      "implementation": "./src/lib/angular-gherkin-testcafe-builder.js",
+      "schema": "./src/lib/schema.json",
+      "description": "Builder that runs Gherkin TestCafe after the Angular application is served"
+    }
+  }
+}
