@@ -1,6 +1,6 @@
 {
   "name": "@adaskothebeast/angular-gherkin-testcafe-builder",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Angular builder for Gherkin Testcafe",
   "repository": {
     "type": "git",
@@ -25,9 +25,7 @@
   "builders": "builders.json",
   "homepage": "https://github.com/adaskothebeast/angular-gherkin-testcafe-builder#readme",
   "peerDependencies": {
-    "@angular/core": ">=16.2.0",
-    "gherkin-testcafe": ">=7.1.0",
-    "testcafe": ">=3.1.0"
+    "gherkin-testcafe": ">=7.1.2"
   },
   "dependencies": {
     "lodash.ismatch": "^4.4.0"
