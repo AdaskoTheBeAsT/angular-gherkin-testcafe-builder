@@ -3,8 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/angular-gherkin-testcafe-builder/src",
   "prefix": "adaskothebeast",
-  "tags": [],
   "projectType": "library",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
@@ -37,8 +37,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/angular-gherkin-testcafe-builder/src/**/*.ts",
-          "libs/angular-gherkin-testcafe-builder/src/**/*.html",
+          "libs/angular-gherkin-testcafe-builder/**/*.{ts,tsx,js,jsx}",
           "libs/angular-gherkin-testcafe-builder/package.json"
         ]
       }

@@ -1,4 +1,3 @@
-/* eslint-disable */
 const reportPath = './.reports/';
 
 export default {
